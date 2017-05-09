@@ -184,19 +184,44 @@ export class BoardState {
     }
 
     private diagonalScoreDown(board: Slot[][], row: number, col: number, color: Slot, previous: List<Position>): number[] {
-        return [0, 0];
+        let scores = [0, 0];
+        
+        // Goes from left to right, from up to down (negative slope)
+        for (let i = CONNECT - 1; i >= 0; i--) {
+            let startCol = col - i;
+            let startRow = row - i;
+            let runningScore = 0;
+
+            for (let ii = 0; ii < CONNECT; ii++) {
+                let pos = new Position(startRow + ii, startCol + ii);
+
+                // Skips if out of bounds
+                if (!this.withinBounds(board, pos)) break;
+                
+                let selDisc = board[startRow + ii][startCol + ii];
+                if (!(selDisc === Slot.Empty || selDisc === color) || previous.contains(pos)) break;
+            }
+        }
+
+        return scores;
     }
 
     private diagonalScoreUp(board: Slot[][], row: number, col: number, color: Slot, previous: List<Position>): number[] {
-        return [0, 0];
+        let scores = [0, 0];
+        
+        return scores;
     }
 
     private horizontalScore(board: Slot[][], row: number, col: number, color: Slot, previous: List<Position>): number[] {
-        return [0, 0];
+        let scores = [0, 0];
+        
+        return scores;
     }
 
     private verticalScore(board: Slot[][], row: number, col: number, color: Slot, previous: List<Position>): number[] {
-        return [0, 0];
+        let scores = [0, 0];
+        
+        return scores;
     }
 
     private withinBounds(board: Slot[][], pos: Position): boolean {
