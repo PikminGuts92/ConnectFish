@@ -1,6 +1,10 @@
+import { List } from "./list";
+import { Position } from "./position";
 
 // Constants
 const CONNECT: number = 4;
+const MAX_INT: number = (2**31) - 1;
+const MIN_INT: number = -(2**31);
 
 export enum Slot {
     Empty = 0,
@@ -114,9 +118,89 @@ export class BoardState {
         this.board[row][column] = (player ? Slot.Player2 : Slot.Player1);
         this._playerTurn = !this._playerTurn;
 
-        // TODO: Re-calculates rating
+        // Re-calculates rating
+        let ratingResult = this.calculateRating(this.board);
+        this._rating = ratingResult[0];
+        this._p1Solutions = ratingResult[1];
+        this._p2Solutions = ratingResult[2];
 
         // Returns row index
         return row;
+    }
+
+    // Utility function
+    private calculateRating(board: Slot[][]): number[] {
+        let ratingSolutions = [ 0, 0, 0 ]; // Rating, p1 sol, p2 sol (Returned)
+        let scores = [ 0, 0 ]; // p1 score, p2 score
+        
+        // Used to avoid overlapping crossings
+        let p1Horizontals = new List<Position>();
+        let p1Verticals = new List<Position>();
+        let p1DiagonalsLeft = new List<Position>();
+        let p1DiagonalsRight = new List<Position>();
+
+        let p2Horizontals = new List<Position>();
+        let p2Verticals = new List<Position>();
+        let p2DiagonalsLeft = new List<Position>();
+        let p2DiagonalsRight = new List<Position>();
+
+        // Starts from the left column, bottom row
+        for (let col = 0; col < this._colSize; col++) {
+            for (let row = this._rowSize - 1; row >= 0; row--) {
+                let color = this.board[row][col];
+                if (color === Slot.Empty) break; // No discs should be above
+                else if (color === Slot.Player1) {
+                    // Player 1
+                    // Evaluates disc placement (All return a value between 0 and 4)
+                    let hResult = this.horizontalScore(board, row, col, color, p1Horizontals);
+                    let vResult = this.verticalScore(board, row, col, color, p1Verticals);
+                    let dlResult = this.diagonalScoreDown(board, row, col, color, p1DiagonalsLeft);
+                    let drResult = this.diagonalScoreUp(board, row, col, color, p1DiagonalsRight);
+
+                    // Adds to total
+                    scores[0] += hResult[0] + vResult[0] + dlResult[0] + drResult[0];
+                    ratingSolutions[1] += hResult[1] + vResult[1] + dlResult[1] + drResult[1];
+                }
+                else if (color === Slot.Player2) {
+                    // Player 2
+                    // Evaluates disc placement (All return a value between 0 and 4)
+                    let hResult = this.horizontalScore(board, row, col, color, p2Horizontals);
+                    let vResult = this.verticalScore(board, row, col, color, p2Verticals);
+                    let dlResult = this.diagonalScoreDown(board, row, col, color, p2DiagonalsLeft);
+                    let drResult = this.diagonalScoreUp(board, row, col, color, p2DiagonalsRight);
+
+                    // Adds to total
+                    scores[1] += hResult[0] + vResult[0] + dlResult[0] + drResult[0];
+                    ratingSolutions[2] += hResult[1] + vResult[1] + dlResult[1] + drResult[1];
+                }
+            }
+        }
+
+        if (ratingSolutions[1] > 0) ratingSolutions[0] = MAX_INT; // Max
+        else if (ratingSolutions[2] > 0) ratingSolutions[0] = MIN_INT; // Min
+        else ratingSolutions[0] = scores[0] - scores[1]; // Difference
+
+        return ratingSolutions;
+    }
+
+    private diagonalScoreDown(board: Slot[][], row: number, col: number, color: Slot, previous: List<Position>): number[] {
+        return [0, 0];
+    }
+
+    private diagonalScoreUp(board: Slot[][], row: number, col: number, color: Slot, previous: List<Position>): number[] {
+        return [0, 0];
+    }
+
+    private horizontalScore(board: Slot[][], row: number, col: number, color: Slot, previous: List<Position>): number[] {
+        return [0, 0];
+    }
+
+    private verticalScore(board: Slot[][], row: number, col: number, color: Slot, previous: List<Position>): number[] {
+        return [0, 0];
+    }
+
+    private withinBounds(board: Slot[][], pos: Position): boolean {
+        return !(pos.column < 0 || pos.column >= board[0].length
+                || pos.row < 0 || pos.row >= board.length);
     }
 }
