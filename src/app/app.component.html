@@ -1,4 +1,7 @@
-<h1> {{title}} </h1>
-<div>
-    <h3>Board</h3>
-</div>
+<h1>{{title}}</h1>
+<nav>
+    <a routerLink="/game" routerLinkActive="active">Game</a>
+    <a routerLink="/help" routerLinkActive="active">Help</a>
+</nav>
+<router-outlet></router-outlet>
+<footer>{{version}}</footer>

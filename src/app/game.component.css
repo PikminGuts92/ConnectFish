@@ -1,0 +1,35 @@
+button.empty {
+    background-color: #F8FF3D; /* Yellow */
+    border: none;
+    color: #F8FF3D;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+}
+
+button.player1 {
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: #4CAF50;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+}
+
+button.player2 {
+    background-color: #EA3B20; /* Red */
+    border: none;
+    color: #EA3B20;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+}
+td {
+    background-color: black;
+}

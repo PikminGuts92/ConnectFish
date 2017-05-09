@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import './board-state.ts';
+
+import { BoardState } from './board-state';
 
 @Component({
     selector: 'app-root',
@@ -8,9 +9,7 @@ import './board-state.ts';
 })
 export class AppComponent implements OnInit {
     public title: string = 'Connect Fish';
-    private game: BoardState;
+    public version: string = 'Version 1.0';
 
-    ngOnInit() {
-        this.game = new BoardState(6, 7);
-    }
+    ngOnInit() { }
 }
