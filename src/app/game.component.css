@@ -1,40 +1,61 @@
-button.empty {
+button.player1Empty {
     background-color: #F8FF3D; /* Yellow */
+    width: 64px;
+    height: 64px;
     border: none;
-    color: #F8FF3D;
-    padding: 15px 32px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
-    font-size: 16px;
+    font-size: 20px;
+}
+
+button.player1Empty:hover {
+    background-color: #EA3B20; /* Red */
+    color: #EA3B20;
 }
 
 button.player1 {
-    background-color: #EA3B20; /* Red */
+    background-color: #EA3B20;
+    width: 64px;
+    height: 64px;
     border: none;
-    color: #EA3B20;
-    padding: 15px 32px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
-    font-size: 16px;
+    font-size: 20px;
+}
+
+button.player2Empty {
+    background-color: #F8FF3D;
+    width: 64px;
+    height: 64px;
+    border: none;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 20px;
+}
+
+button.player2Empty:hover {
+    background-color: #4CAF50; /* Green */
+    color: #4CAF50;
+}
+
+button.player2 {
+    background-color: #4CAF50;
+    width: 64px;
+    height: 64px;
+    border: none;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 20px;
 }
 
 div.player1 {
     border: none;
     color: #EA3B20;
     font-size: 20px;
-}
-
-button.player2 {
-    background-color: #4CAF50; /* Green */
-    border: none;
-    color: #4CAF50;
-    padding: 15px 32px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
 }
 
 div.player2 {

@@ -7,8 +7,8 @@ export class Position implements Hashable {
         const prime = 23;
         let hash = 59; // Also a prime
 
-        hash *= prime * this.row;
-        hash *= prime * this.column;
+        hash *= prime + this.row;
+        hash *= prime + this.column;
         return hash;
     }
 }

@@ -8,10 +8,19 @@
     <!-- Creates grid for board -->
     <tr *ngFor="let rows of game.board; let rowIdx = index">
         <td *ngFor="let slot of rows; let colIdx = index">
-            <ng-template #btnEmpty><button class="empty" (click)="selectSlot(rowIdx, colIdx)">0</button></ng-template>
-            <ng-template #btnPlayer1><button class="player1">1</button></ng-template>
-            <ng-template #btnPlayer2><button class="player2">2</button></ng-template>
-            <div *ngIf="slot === 0; then btnEmpty else ((slot === 1) ? btnPlayer1: btnPlayer2)"></div>
+            <ng-template #btnPlayer1Empty>
+                <button class="player1Empty" (click)="selectSlot(rowIdx, colIdx)">
+                    {{game.debug ? "0" : null}}
+                </button>
+            </ng-template>
+            <ng-template #btnPlayer2Empty>
+                <button class="player2Empty" (click)="selectSlot(rowIdx, colIdx)">
+                    {{game.debug ? "0" : null}}
+                </button>
+            </ng-template>
+            <ng-template #btnPlayer1><button class="player1"></button></ng-template>
+            <ng-template #btnPlayer2><button class="player2"></button></ng-template>
+            <div *ngIf="slot === 0; then (game.playerTurn ? btnPlayer2Empty: btnPlayer1Empty) else ((slot === 1) ? btnPlayer1: btnPlayer2)"></div>
         </td>
     </tr>
 </div>

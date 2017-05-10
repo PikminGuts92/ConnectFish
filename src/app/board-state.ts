@@ -36,6 +36,7 @@ export class BoardState {
     public get player2Solutions(): number { return this._p2Solutions; }
     public get rating(): number { return this._rating; }
     public get lastMove(): number { return this._lastMove; }
+    public get debug(): boolean { return false; }
 
     constructor(private readonly _rowSize: number, private readonly _colSize: number, pTurn: number = 1) {
         this.reset(pTurn);
@@ -46,6 +47,8 @@ export class BoardState {
         // Copies all values
         let newBoard = new BoardState(oldBoard._rowSize, oldBoard._colSize);
         newBoard._playerTurn = oldBoard._playerTurn;
+        newBoard._rating = oldBoard._rating;
+        newBoard._lastMove = newBoard._lastMove;
 
         // Copies slots from old board to new board
         for (let i: number = 0; i < newBoard._rowSize; i++) {
@@ -55,6 +58,9 @@ export class BoardState {
                 newBoard.board[i][j] = oldBoard.board[i][j];
             }
         }
+
+        newBoard._p1Solutions = oldBoard._p1Solutions;
+        newBoard._p2Solutions = oldBoard._p2Solutions;
         
         return newBoard;
     }
@@ -241,7 +247,7 @@ export class BoardState {
         
         // Goes from right to left, from down to up (negative slope)
         for (let i = CONNECT - 1; i >= 0; i--) {
-            let startCol = col - i;
+            let startCol = col + i;
             let startRow = row - i;
             let runningScore = 0;
 
@@ -282,7 +288,7 @@ export class BoardState {
         // Goes from left to right
         for (let i = CONNECT - 1; i >= 0; i--) {
             let startCol = col - i;
-            let startRow = row - i;
+            let startRow = row;
             let runningScore = 0;
 
             for (let ii = 0; ii < CONNECT; ii++) {
@@ -321,7 +327,7 @@ export class BoardState {
         
         // Goes from up to down
         for (let i = CONNECT - 1; i >= 0; i--) {
-            let startCol = col - i;
+            let startCol = col;
             let startRow = row - i;
             let runningScore = 0;
 
@@ -357,6 +363,7 @@ export class BoardState {
     }
 
     private withinBounds(board: Slot[][], pos: Position): boolean {
+        // Returns false if out of bounds
         return !(pos.column < 0 || pos.column >= board[0].length
                 || pos.row < 0 || pos.row >= board.length);
     }

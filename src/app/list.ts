@@ -26,8 +26,10 @@ export class List<T> {
             let valueHash = (value as any as Hashable).getHashCode();
 
             for (let item of this.items) {
-                if ((item as any as Hashable).getHashCode() === valueHash)
+                if ((item as any as Hashable).getHashCode() === valueHash) {
                     return true;
+                }
+                    
             }
 
             return false;
@@ -51,6 +53,6 @@ export class List<T> {
     }
 
     public sort(method: any): void {
-        this.items.sort(method);
+        let items2 = this.items.sort(method);
     } 
 }

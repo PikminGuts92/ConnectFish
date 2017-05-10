@@ -20,13 +20,21 @@ export class ComRoutines {
 
         // Sorts states by rating
         if (maxPlayer) {
-            moves.sort((a, b): number => {
-                return b.rating - a.rating;
+            // Big numbers first
+            states.sort((a, b): number => {
+                //return b.rating - a.rating;
+                if (a.rating < b.rating) return 1;
+                else if (a.rating > b.rating) return -1;
+                else return 0;
             });
         }
         else {
-            moves.sort((a, b): number => {
-                return a.rating - b.rating;
+            // Small numbers first
+            states.sort((a, b): number => {
+                //return a.rating - b.rating;
+                if (a.rating > b.rating) return 1;
+                else if (a.rating < b.rating) return -1;
+                else return 0;
             });
         }
 
