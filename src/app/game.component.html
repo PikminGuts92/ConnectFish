@@ -6,21 +6,19 @@
     <div>P1 Solutuions: {{game.player1Solutions}}, P2 Solutuions: {{game.player2Solutions}}, Rating: {{game.rating}}</div>
 
     <!-- Creates grid for board -->
-    <tr *ngFor="let rows of game.board; let rowIdx = index">
-        <td *ngFor="let slot of rows; let colIdx = index">
-            <ng-template #btnPlayer1Empty>
-                <button class="player1Empty" (click)="selectSlot(rowIdx, colIdx)">
-                    {{game.debug ? "0" : null}}
-                </button>
-            </ng-template>
-            <ng-template #btnPlayer2Empty>
-                <button class="player2Empty" (click)="selectSlot(rowIdx, colIdx)">
-                    {{game.debug ? "0" : null}}
-                </button>
-            </ng-template>
-            <ng-template #btnPlayer1><button class="player1"></button></ng-template>
-            <ng-template #btnPlayer2><button class="player2"></button></ng-template>
-            <div *ngIf="slot === 0; then (game.playerTurn ? btnPlayer2Empty: btnPlayer1Empty) else ((slot === 1) ? btnPlayer1: btnPlayer2)"></div>
-        </td>
-    </tr>
+    <table>
+        <tr *ngFor="let rows of game.board; let rowIdx = index">
+            <td *ngFor="let slot of rows; let colIdx = index">
+                <ng-template #btnPlayer1Empty>
+                    <button class="player1Empty" (click)="selectSlot(rowIdx, colIdx)"></button>
+                </ng-template>
+                <ng-template #btnPlayer2Empty>
+                    <button class="player2Empty" (click)="selectSlot(rowIdx, colIdx)"></button>
+                </ng-template>
+                <ng-template #btnPlayer1><button class="player1"></button></ng-template>
+                <ng-template #btnPlayer2><button class="player2"></button></ng-template>
+                <div *ngIf="slot === 0; then (game.playerTurn ? btnPlayer2Empty: btnPlayer1Empty) else ((slot === 1) ? btnPlayer1: btnPlayer2)"></div>
+            </td>
+        </tr>
+    </table>
 </div>

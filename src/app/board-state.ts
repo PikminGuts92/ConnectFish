@@ -36,7 +36,6 @@ export class BoardState {
     public get player2Solutions(): number { return this._p2Solutions; }
     public get rating(): number { return this._rating; }
     public get lastMove(): number { return this._lastMove; }
-    public get debug(): boolean { return false; }
 
     constructor(private readonly _rowSize: number, private readonly _colSize: number, pTurn: number = 1) {
         this.reset(pTurn);

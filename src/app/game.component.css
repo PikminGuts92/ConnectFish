@@ -1,8 +1,13 @@
+button:focus {
+    outline: 0;
+}
+
 button.player1Empty {
-    background-color: #F8FF3D; /* Yellow */
+    background-color: white;
     width: 64px;
     height: 64px;
-    border: none;
+    border-radius: 50%;
+    border: 1px solid black;
     text-align: center;
     text-decoration: none;
     display: inline-block;
@@ -18,7 +23,8 @@ button.player1 {
     background-color: #EA3B20;
     width: 64px;
     height: 64px;
-    border: none;
+    border-radius: 50%;
+    border: 1px solid;
     text-align: center;
     text-decoration: none;
     display: inline-block;
@@ -26,10 +32,11 @@ button.player1 {
 }
 
 button.player2Empty {
-    background-color: #F8FF3D;
+    background-color: white;
     width: 64px;
     height: 64px;
-    border: none;
+    border-radius: 50%;
+    border: 1px solid black;
     text-align: center;
     text-decoration: none;
     display: inline-block;
@@ -45,7 +52,8 @@ button.player2 {
     background-color: #4CAF50;
     width: 64px;
     height: 64px;
-    border: none;
+    border-radius: 50%;
+    border: 1px solid;
     text-align: center;
     text-decoration: none;
     display: inline-block;
@@ -64,6 +72,8 @@ div.player2 {
     font-size: 20px;
 }
 
-td {
-    background-color: black;
+table {
+    background-color: #D1D136; /* Yellow */
+    border-radius: 0%;
+    border: 1px solid black;
 }
