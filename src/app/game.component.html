@@ -1,12 +1,14 @@
 <div *ngIf="game">
     <!-- Shows player turn -->
-    <div>Player {{game.playerTurn ? 2: 1}}'s turn</div>
+    <ng-template #tagPlayer1><div class="player1">Player 1's turn</div></ng-template>
+    <ng-template #tagPlayer2><div class="player2">Player 2's turn</div></ng-template>
+    <div *ngIf="game.playerTurn; then tagPlayer2 else tagPlayer1"></div>
     <div>P1 Solutuions: {{game.player1Solutions}}, P2 Solutuions: {{game.player2Solutions}}, Rating: {{game.rating}}</div>
 
     <!-- Creates grid for board -->
     <tr *ngFor="let rows of game.board; let rowIdx = index">
         <td *ngFor="let slot of rows; let colIdx = index">
-            <ng-template #btnEmpty id='emtBtn'><button class="empty" (click)="selectSlot(rowIdx, colIdx)">0</button></ng-template>
+            <ng-template #btnEmpty><button class="empty" (click)="selectSlot(rowIdx, colIdx)">0</button></ng-template>
             <ng-template #btnPlayer1><button class="player1">1</button></ng-template>
             <ng-template #btnPlayer2><button class="player2">2</button></ng-template>
             <div *ngIf="slot === 0; then btnEmpty else ((slot === 1) ? btnPlayer1: btnPlayer2)"></div>
