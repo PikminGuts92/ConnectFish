@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 
 import { BoardState, Slot } from './board-state';
+import { ComRoutines as CRS } from './comroutines';
 
 @Component({
     selector: 'game',
@@ -20,5 +21,9 @@ export class GameComponent implements OnInit {
 
     selectSlot(row: number, col: number) {
         this.game.commitMove(col, this.game.playerTurn);
+
+        // Computer plays
+        let bestMove = CRS.findbestMove(this.game, 5, this.game.playerTurn);
+        this.game.commitMove(bestMove, this.game.playerTurn);
     }
 }

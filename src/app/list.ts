@@ -2,8 +2,6 @@ import { Hashable } from './hashable';
 
 // Source: http://stackoverflow.com/questions/23096260/is-there-a-typescript-list-and-or-map-class-library
 
-class Hash { }
-
 export class List<T> {
     private items: Array<T>;
 
@@ -11,7 +9,7 @@ export class List<T> {
         this.items = [];
     }
 
-    public count(): number {
+    get count(): number {
         return this.items.length;
     }
 
@@ -24,11 +22,35 @@ export class List<T> {
     }
 
     public contains(value: T): boolean {
+        if (this.isHashable(value)) {
+            let valueHash = (value as any as Hashable).getHashCode();
 
-        for (let item of this.items) {
-            //if (item instanceof Hashable) break;
+            for (let item of this.items) {
+                if ((item as any as Hashable).getHashCode() === valueHash)
+                    return true;
+            }
+
+            return false;
         }
+        else {
+            for (let item of this.items) {
+                if (item === value)
+                    return true;
+            }
 
-        return false;
+            return false;
+        }
     }
+
+    private isHashable(arg: any): boolean {
+        return arg.getHashCode() !== undefined;
+    }
+
+    public toArray(): Array<T> {
+        return this.items.slice(0);
+    }
+
+    public sort(method: any): void {
+        this.items.sort(method);
+    } 
 }

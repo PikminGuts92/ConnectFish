@@ -14,9 +14,9 @@ export enum Slot {
 
 export class BoardState {
     /*   0 1 2 3 . . c
-     * 1 0 0 0 0 0 0 0
+     * 0 0 0 0 0 0 0 0
+     * 1 0 . . . . . 0
      * 2 0 . . . . . 0
-     * 3 0 . . . . . 0
      * . 0 . . . . . 0
      * . 0 . . . . . 0
      * r 0 0 0 0 0 0 0
@@ -81,6 +81,16 @@ export class BoardState {
         this._p2Solutions = 0;
     }
 
+    public possibleMoves(): List<number> {
+        let moves = new List<number>();
+
+        for (let i = 0; i < this._colSize; i++) {
+            if (this.board[0][i] === Slot.Empty) moves.add(i);
+        }
+
+        return moves;
+    }
+
     private legalMove(column: number, player: boolean): boolean {
         // Returns false if out of bounds
         if (player != this._playerTurn || column < 0 || column >= this._colSize)
@@ -123,6 +133,9 @@ export class BoardState {
         this._rating = ratingResult[0];
         this._p1Solutions = ratingResult[1];
         this._p2Solutions = ratingResult[2];
+
+        // Updates last move
+        this._lastMove = column;
 
         // Returns row index
         return row;
@@ -184,7 +197,7 @@ export class BoardState {
     }
 
     private diagonalScoreDown(board: Slot[][], row: number, col: number, color: Slot, previous: List<Position>): number[] {
-        let scores = [0, 0];
+        let scores = [0, 0]; // score, solutionScore
         
         // Goes from left to right, from up to down (negative slope)
         for (let i = CONNECT - 1; i >= 0; i--) {
@@ -200,6 +213,23 @@ export class BoardState {
                 
                 let selDisc = board[startRow + ii][startCol + ii];
                 if (!(selDisc === Slot.Empty || selDisc === color) || previous.contains(pos)) break;
+
+                // Checks if it's a solution
+                if (selDisc === color) runningScore++;
+
+                // Adds score (Last disc)
+                if (ii === CONNECT - 1) {
+                    previous.add(new Position(startRow, startCol));
+
+                    if (runningScore === CONNECT) {
+                        scores[0] += 1000;
+                        scores[1]++;
+                        continue;
+                    }
+
+                    // 1 = 2^0, 2 = 2^2, 3 = 2^4, 4 = 2^10
+                    scores[0] += 1 << ((runningScore - 1) << 1); // 1, 4, 16, 64
+                }
             }
         }
 
@@ -207,20 +237,122 @@ export class BoardState {
     }
 
     private diagonalScoreUp(board: Slot[][], row: number, col: number, color: Slot, previous: List<Position>): number[] {
-        let scores = [0, 0];
+        let scores = [0, 0]; // score, solutionScore
         
+        // Goes from right to left, from down to up (negative slope)
+        for (let i = CONNECT - 1; i >= 0; i--) {
+            let startCol = col - i;
+            let startRow = row - i;
+            let runningScore = 0;
+
+            for (let ii = 0; ii < CONNECT; ii++) {
+                let pos = new Position(startRow + ii, startCol - ii);
+
+                // Skips if out of bounds
+                if (!this.withinBounds(board, pos)) break;
+                
+                let selDisc = board[startRow + ii][startCol - ii];
+                if (!(selDisc === Slot.Empty || selDisc === color) || previous.contains(pos)) break;
+
+                // Checks if it's a solution
+                if (selDisc === color) runningScore++;
+
+                // Adds score (Last disc)
+                if (ii === CONNECT - 1) {
+                    previous.add(new Position(startRow, startCol));
+
+                    if (runningScore === CONNECT) {
+                        scores[0] += 1000;
+                        scores[1]++;
+                        continue;
+                    }
+
+                    // 1 = 2^0, 2 = 2^2, 3 = 2^4, 4 = 2^10
+                    scores[0] += 1 << ((runningScore - 1) << 1);
+                }
+            }
+        }
+
         return scores;
     }
 
     private horizontalScore(board: Slot[][], row: number, col: number, color: Slot, previous: List<Position>): number[] {
-        let scores = [0, 0];
+        let scores = [0, 0]; // score, solutionScore
+        
+        // Goes from left to right
+        for (let i = CONNECT - 1; i >= 0; i--) {
+            let startCol = col - i;
+            let startRow = row - i;
+            let runningScore = 0;
+
+            for (let ii = 0; ii < CONNECT; ii++) {
+                let pos = new Position(startRow, startCol + ii);
+
+                // Skips if out of bounds
+                if (!this.withinBounds(board, pos)) break;
+                
+                let selDisc = board[startRow][startCol + ii];
+                if (!(selDisc === Slot.Empty || selDisc === color) || previous.contains(pos)) break;
+
+                // Checks if it's a solution
+                if (selDisc === color) runningScore++;
+
+                // Adds score (Last disc)
+                if (ii === CONNECT - 1) {
+                    previous.add(new Position(startRow, startCol));
+
+                    if (runningScore === CONNECT) {
+                        scores[0] += 1000;
+                        scores[1]++;
+                        continue;
+                    }
+
+                    // 1 = 2^0, 2 = 2^2, 3 = 2^4, 4 = 2^10
+                    scores[0] += 1 << ((runningScore - 1) << 1);
+                }
+            }
+        }
         
         return scores;
     }
 
     private verticalScore(board: Slot[][], row: number, col: number, color: Slot, previous: List<Position>): number[] {
-        let scores = [0, 0];
+        let scores = [0, 0]; // score, solutionScore
         
+        // Goes from up to down
+        for (let i = CONNECT - 1; i >= 0; i--) {
+            let startCol = col - i;
+            let startRow = row - i;
+            let runningScore = 0;
+
+            for (let ii = 0; ii < CONNECT; ii++) {
+                let pos = new Position(startRow + ii, startCol);
+
+                // Skips if out of bounds
+                if (!this.withinBounds(board, pos)) break;
+                
+                let selDisc = board[startRow + ii][startCol];
+                if (!(selDisc === Slot.Empty || selDisc === color) || previous.contains(pos)) break;
+
+                // Checks if it's a solution
+                if (selDisc === color) runningScore++;
+
+                // Adds score (Last disc)
+                if (ii === CONNECT - 1) {
+                    previous.add(new Position(startRow, startCol));
+
+                    if (runningScore === CONNECT) {
+                        scores[0] += 1000;
+                        scores[1]++;
+                        continue;
+                    }
+
+                    // 1 = 2^0, 2 = 2^2, 3 = 2^4, 4 = 2^10
+                    scores[0] += 1 << ((runningScore - 1) << 1);
+                }
+            }
+        }
+
         return scores;
     }
 
