@@ -1,7 +1,7 @@
 <div *ngIf="game">
     <!-- Shows player turn -->
     <ng-template #inPlay><div class="{{game.playerTurn ? 'player2' : 'player1'}}">Player {{game.playerTurn ? 2 : 1}}'s turn</div></ng-template>
-    <ng-template #endGame><div class="{{!game.playerTurn ? 'player2' : 'player1'}}">Game Over: Player {{!game.playerTurn ? 2 : 1}} wins!</div></ng-template>
+    <ng-template #endGame><div class="{{!game.playerTurn ? 'player2' : 'player1'}}">Player {{!game.playerTurn ? 2 : 1}} wins!</div></ng-template>
 
     <div *ngIf="game.isOver; then endGame else inPlay"></div>
     <div>P1 Solutuions: {{game.player1Solutions}}, P2 Solutuions: {{game.player2Solutions}}, Rating: {{game.rating}}</div>
