@@ -20,7 +20,11 @@ export class GameComponent implements OnInit {
     }
 
     selectSlot(row: number, col: number) {
+        if (this.game.isOver) return;
+
+        // Human plays
         this.game.commitMove(col, this.game.playerTurn);
+        if (this.game.isOver) return;
 
         // Computer plays
         let bestMove = CRS.findbestMove(this.game, 5, this.game.playerTurn);

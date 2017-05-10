@@ -2,6 +2,22 @@ button:focus {
     outline: 0;
 }
 
+button.empty {
+    background-color: white;
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    border: 1px solid black;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 20px;
+}
+
+button.empty:hover {
+    background-color: white; /* Red */
+}
+
 button.player1Empty {
     background-color: white;
     width: 64px;
@@ -16,7 +32,6 @@ button.player1Empty {
 
 button.player1Empty:hover {
     background-color: #EA3B20; /* Red */
-    color: #EA3B20;
 }
 
 button.player1 {
@@ -45,7 +60,6 @@ button.player2Empty {
 
 button.player2Empty:hover {
     background-color: #4CAF50; /* Green */
-    color: #4CAF50;
 }
 
 button.player2 {

@@ -1,23 +1,26 @@
 <div *ngIf="game">
     <!-- Shows player turn -->
-    <ng-template #tagPlayer1><div class="player1">Player 1's turn</div></ng-template>
-    <ng-template #tagPlayer2><div class="player2">Player 2's turn</div></ng-template>
-    <div *ngIf="game.playerTurn; then tagPlayer2 else tagPlayer1"></div>
+    <ng-template #inPlay><div class="{{game.playerTurn ? 'player2' : 'player1'}}">Player {{game.playerTurn ? 2 : 1}}'s turn</div></ng-template>
+    <ng-template #endGame><div class="{{!game.playerTurn ? 'player2' : 'player1'}}">Game Over: Player {{!game.playerTurn ? 2 : 1}} wins!</div></ng-template>
+
+    <div *ngIf="game.isOver; then endGame else inPlay"></div>
     <div>P1 Solutuions: {{game.player1Solutions}}, P2 Solutuions: {{game.player2Solutions}}, Rating: {{game.rating}}</div>
 
-    <!-- Creates grid for board -->
+    <!-- Options -->
+    <div style="padding: 0px 0px 2px 0px">
+        <button style="width: 480px;" (click)="game.reset()">Reset</button>
+    </div>
+
+    <!-- Interative game board -->
     <table>
         <tr *ngFor="let rows of game.board; let rowIdx = index">
             <td *ngFor="let slot of rows; let colIdx = index">
-                <ng-template #btnPlayer1Empty>
-                    <button class="player1Empty" (click)="selectSlot(rowIdx, colIdx)"></button>
-                </ng-template>
-                <ng-template #btnPlayer2Empty>
-                    <button class="player2Empty" (click)="selectSlot(rowIdx, colIdx)"></button>
+                <ng-template #btnEmpty>
+                    <button class="{{game.isOver ? 'empty' : (game.playerTurn ? 'player2Empty': 'player1Empty')}}" (click)="selectSlot(rowIdx, colIdx)"></button>
                 </ng-template>
                 <ng-template #btnPlayer1><button class="player1"></button></ng-template>
                 <ng-template #btnPlayer2><button class="player2"></button></ng-template>
-                <div *ngIf="slot === 0; then (game.playerTurn ? btnPlayer2Empty: btnPlayer1Empty) else ((slot === 1) ? btnPlayer1: btnPlayer2)"></div>
+                <div *ngIf="slot === 0; then btnEmpty else ((slot === 1) ? btnPlayer1: btnPlayer2)"></div>
             </td>
         </tr>
     </table>

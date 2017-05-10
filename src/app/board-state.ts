@@ -36,6 +36,9 @@ export class BoardState {
     public get player2Solutions(): number { return this._p2Solutions; }
     public get rating(): number { return this._rating; }
     public get lastMove(): number { return this._lastMove; }
+    public get isOver(): boolean { return this._p1Solutions > 0 || this._p2Solutions > 0; }
+    public get rowSize(): number { return this._rowSize; }
+    public get columnSize(): number { return this._colSize; }
 
     constructor(private readonly _rowSize: number, private readonly _colSize: number, pTurn: number = 1) {
         this.reset(pTurn);
