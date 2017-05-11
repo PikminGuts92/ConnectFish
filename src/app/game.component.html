@@ -8,7 +8,7 @@
 
     <!-- Options -->
     <div style="padding: 0px 0px 2px 0px">
-        <button style="width: 480px;" (click)="game.reset()">Reset</button>
+        <button style="width: 480px;" (click)="onReset()">Reset</button>
     </div>
 
     <!-- Interative game board -->
@@ -16,7 +16,7 @@
         <tr *ngFor="let rows of game.board; let rowIdx = index">
             <td *ngFor="let slot of rows; let colIdx = index">
                 <ng-template #btnEmpty>
-                    <button class="{{game.isOver ? 'empty' : (game.playerTurn ? 'player2Empty': 'player1Empty')}}" (click)="selectSlot(rowIdx, colIdx)"></button>
+                    <button class="{{game.isOver ? 'empty' : (game.playerTurn ? 'player2Empty': 'player1Empty')}}" (click)="onSelectSlot(rowIdx, colIdx)"></button>
                 </ng-template>
                 <ng-template #btnPlayer1><button class="player1"></button></ng-template>
                 <ng-template #btnPlayer2><button class="player2"></button></ng-template>

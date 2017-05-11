@@ -15,11 +15,16 @@ export class GameComponent implements OnInit {
         this.game = new BoardState(6, 7);
     }
 
-    ngOnInit(): void {
-
+    private doRandomMove(): void {
+        let move = Math.floor(Math.random() * this.game.columnSize); // 0 - culumnSize
+        this.game.commitMove(move, this.game.playerTurn);
     }
 
-    selectSlot(row: number, col: number) {
+    ngOnInit(): void {
+        this.doRandomMove();
+    }
+
+    onSelectSlot(row: number, col: number) {
         if (this.game.isOver) return;
 
         // Human plays
@@ -29,5 +34,13 @@ export class GameComponent implements OnInit {
         // Computer plays
         let bestMove = CRS.findbestMove(this.game, 5, this.game.playerTurn);
         this.game.commitMove(bestMove, this.game.playerTurn);
+    }
+
+    onReset(): void {
+        // Resets board
+        this.game.reset();
+        
+        // Computer plays
+        this.doRandomMove();
     }
 }
