@@ -1,8 +1,13 @@
-<h1>{{title}}</h1>
-<nav>
-    <a routerLink="/game" routerLinkActive="active">Game</a>
-    <a routerLink="/help" routerLinkActive="active">Help</a>
-</nav>
-<!--router-outlet></router-outlet-->
-<game></game>
-<footer>{{version}}</footer>
+<div>
+    <h1>{{title}}</h1>
+    <!--nav>
+        <a routerLink="/game" routerLinkActive="active">Game</a>
+        <a routerLink="/help" routerLinkActive="active">Help</a>
+    </nav-->
+    <!--router-outlet></router-outlet-->
+    <md-tab-group>
+        <md-tab label="Game"><game></game></md-tab>
+        <md-tab label="Help">Instructions go here...</md-tab>
+    </md-tab-group>
+    <footer>{{version}}</footer>
+</div>

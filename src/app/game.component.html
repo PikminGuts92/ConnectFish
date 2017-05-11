@@ -7,9 +7,9 @@
     <div>P1 Solutuions: {{game.player1Solutions}}, P2 Solutuions: {{game.player2Solutions}}, Rating: {{game.rating}}</div>
 
     <!-- Options -->
-    <div style="padding: 0px 0px 2px 0px">
-        <button style="width: 480px;" (click)="onReset()">Reset</button>
-    </div>
+    <md-grid-list cols="1" rowHeight="40px" style="width: 100%">
+        <md-grid-tile><button md-raised-button style="width: 100%; height: 100%" (click)="onReset()">Reset</button></md-grid-tile>
+    </md-grid-list>
 
     <!-- Interative game board -->
     <table>
