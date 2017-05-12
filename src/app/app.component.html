@@ -1,13 +1,10 @@
-<div>
-    <h1>{{title}}</h1>
+<div class="container-fluid">
+    <header><h1>{{title}}</h1></header>
     <!--nav>
         <a routerLink="/game" routerLinkActive="active">Game</a>
         <a routerLink="/help" routerLinkActive="active">Help</a>
     </nav-->
     <!--router-outlet></router-outlet-->
-    <md-tab-group>
-        <md-tab label="Game"><game></game></md-tab>
-        <md-tab label="Help">Instructions go here...</md-tab>
-    </md-tab-group>
+    <game></game>
     <footer>{{version}}</footer>
 </div>

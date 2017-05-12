@@ -10,9 +10,11 @@ import { ComRoutines as CRS } from './comroutines';
 })
 export class GameComponent implements OnInit {
     public game: BoardState;
+    public readonly discSize: number[]; // width, height
 
     constructor() {
         this.game = new BoardState(6, 7);
+        this.discSize = [100.0 / this.game.rowSize, 100.0 / this.game.columnSize];
     }
 
     private doRandomMove(): void {

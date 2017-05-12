@@ -1,93 +1,42 @@
-button:focus {
-    outline: 0;
-}
-
-button.empty {
-    background-color: white;
-    width: 64px;
-    height: 64px;
-    border-radius: 50%;
-    border: 1px solid black;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 20px;
-}
-
-button.empty:hover {
-    background-color: white; /* Red */
-}
-
-button.player1Empty {
-    background-color: white;
-    width: 64px;
-    height: 64px;
-    border-radius: 50%;
-    border: 1px solid black;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 20px;
-}
-
-button.player1Empty:hover {
-    background-color: #EA3B20; /* Red */
-}
-
-button.player1 {
-    background-color: #EA3B20;
-    width: 64px;
-    height: 64px;
-    border-radius: 50%;
-    border: 1px solid;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 20px;
-}
-
-button.player2Empty {
-    background-color: white;
-    width: 64px;
-    height: 64px;
-    border-radius: 50%;
-    border: 1px solid black;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 20px;
-}
-
-button.player2Empty:hover {
-    background-color: #4CAF50; /* Green */
-}
-
-button.player2 {
-    background-color: #4CAF50;
-    width: 64px;
-    height: 64px;
-    border-radius: 50%;
-    border: 1px solid;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 20px;
-}
-
-div.player1 {
-    border: none;
-    color: #EA3B20;
-    font-size: 20px;
-}
-
-div.player2 {
-    border: none;
-    color: #4CAF50;
-    font-size: 20px;
-}
-
-table {
+table, .board {
+    width: 560px;
+    height: 480px;
     background-color: #D1D136; /* Yellow */
     border-radius: 0%;
     border: 1px solid black;
+}
+
+button.disc:focus {
+    outline: 0;
+}
+
+button.disc {
+    width: 100%;
+    height: 100%;
+    background-color: white; /* Default*/
+    border-radius: 50%;
+    border: 1px solid black;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.player1 {
+    border: none;
+    color: #EA3B20; /* Red */
+    font-size: 20px;
+}
+
+button.player1, .player1Empty:hover {
+    background-color: #EA3B20;
+}
+
+.player2 {
+    border: none;
+    color: #4CAF50; /* Green */
+    font-size: 20px;
+}
+
+button.player2, .player2Empty:hover {
+    background-color: #4CAF50;
 }
