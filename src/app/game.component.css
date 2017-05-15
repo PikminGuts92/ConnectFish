@@ -1,6 +1,12 @@
-table, .board {
+.board {
     width: 560px;
     height: 480px;
+    background-color: #D1D136; /* Yellow */
+    border-radius: 0%;
+    border: 1px solid black;
+}
+
+.gameBoard {
     background-color: #D1D136; /* Yellow */
     border-radius: 0%;
     border: 1px solid black;

@@ -6,18 +6,33 @@
 <ng-template #btnPlayer1><button class="disc player1"></button></ng-template>
 <ng-template #btnPlayer2><button class="disc player2"></button></ng-template>
 
-<div *ngIf="game" class="container-fluid">
+<div *ngIf="game">
+    <div class="row" style="background-color:aqua">
+        <div class="col-xs-12">Test</div>
+    </div>
+
     <!-- Shows player turn -->
-    <div *ngIf="game.isOver; then endGame else inPlay"></div>
-    <div>P1 Solutuions: {{game.player1Solutions}}, P2 Solutuions: {{game.player2Solutions}}, Rating: {{game.rating}}</div>
+    <div class="row">
+        <div *ngIf="game.isOver; then endGame else inPlay" class="col-xs-12"></div>
+    </div>
+    <div class="row" style="background-color: pink">
+        <div class="col-xs-12">P1 Solutuions: {{game.player1Solutions}}, P2 Solutuions: {{game.player2Solutions}}, Rating: {{game.rating}}</div>
+    </div>
 
     <!-- Options -->
-    <md-grid-list cols="1" rowHeight="40px" style="width: 100%">
-        <md-grid-tile><button md-raised-button style="width: 100%; height: 100%" (click)="onReset()">Reset</button></md-grid-tile>
-    </md-grid-list>
+    <div class="row">
+        <button class="btn btn-default col-xs-12" style="height: 100%; width: 100%" (click)="onReset()">Reset</button>
+    </div>
 
     <!-- Interactive game board -->
     <!--table style="width: 560px; height: 480px; max-width: 560px; max-height: 480px"-->
+    <!--table class="board">
+        <tr *ngFor="let rows of game.board; let rowIdx = index">
+            <td *ngFor="let slot of rows; let colIdx = index">
+                <div *ngIf="slot === 0; then btnEmpty else ((slot === 1) ? btnPlayer1: btnPlayer2)"></div>
+            </td>
+        </tr>
+    </table-->
     <!--table>
         <tr *ngFor="let rows of game.board; let rowIdx = index">
             <td *ngFor="let slot of rows; let colIdx = index">
@@ -25,11 +40,13 @@
             </td>
         </tr>
     </table-->
-    <table>
-        <tr *ngFor="let rows of game.board; let rowIdx = index">
+    <div class="row"><div class="col-xs-12" style="width: 100%; height: auto">
+    <table class="gameBoard" style="table-layout: fixed; margin: auto; width: 100%; height: 100%">
+        <tr *ngFor="let rows of game.board; let rowIdx = index" style="background-color: green" >
             <td *ngFor="let slot of rows; let colIdx = index">
                 <div *ngIf="slot === 0; then btnEmpty else ((slot === 1) ? btnPlayer1: btnPlayer2)"></div>
             </td>
         </tr>
     </table>
+    </div></div>
 </div>
