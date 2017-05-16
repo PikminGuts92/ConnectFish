@@ -2,6 +2,9 @@
 <ng-template #inPlay><div class="{{game.playerTurn ? 'player2' : 'player1'}}" style="margin: auto">Player {{game.playerTurn ? 2 : 1}}'s turn</div></ng-template>
 <ng-template #endGame><div class="{{!game.playerTurn ? 'player2' : 'player1'}}" style="margin: auto">Player {{!game.playerTurn ? 2 : 1}} wins!</div></ng-template>
 
+<!-- Contants -->
+<!-- -->
+
 <div *ngIf="game">
     <!-- Shows player turn -->
     <div class="row">
@@ -17,10 +20,12 @@
     </div>
 
     <!-- Interactive game board -->
-	<div class="row">
-    	<div style="position: relative; padding-top: calc(100% * 6 / 7); width: 100%" class="col-xs-12 container"> 
-        	<table class="gameBoard" style="width: 100%; height: 100%; position: absolute; top: 0; left: 0; bottom: 0; right: 0; margin-left: auto; margin-right: auto">
-                <tr *ngFor="let rows of game.board; let rowIdx = index">
+    <div class="row"><div class="col-xs-12" style="width: 100%; height: 100%">
+	<div style="max-width: calc(80px * 7); max-height: calc(80px * 6); margin: auto">
+    	<div style="width: 100%; padding-top: calc(100% * 6 / 7); position: relative">
+            <div style="position: absolute; top: 0; left: 0; bottom: 0; right: 0">
+        	<table class="gameBoard" style="width: 100%; height: 100%; table-layout: fixed">
+                <tr *ngFor="let rows of game.board; let rowIdx = index" style="height: 16%">
                     <td *ngFor="let slot of rows; let colIdx = index">
                         <ng-template #btnEmpty><button class="disc {{game.playerTurn ? 'player2Empty': 'player1Empty'}}" (click)="onSelectSlot(rowIdx, colIdx)"></button></ng-template>
                         <ng-template #btnPlayer1><button class="disc player1"></button></ng-template>
@@ -29,7 +34,36 @@
                     </td>
                 </tr>
             </table>
+            </div>
     	</div>
 	</div>
+    </div></div>
 
+    <!--div class="container" style="background-color: red; width: 100%; padding-top: 85%; position: relative">
+        <div style="position: absolute; top: 0; left: 0; bottom: 0; right: 0; background-color:aquamarine">
+        <table style="width: 100%; height: 100%;">
+            <tr style="height: 33%">
+                <td style="background-color: green"><button class="disc player1Empty" style="width: 100%; height: 100%"></button></td>
+                <td><button class="disc player1Empty" style="width: 100%; height: 100%"></button></td>
+                <td style="background-color: green"><button class="disc player1Empty" style="width: 100%; height: 100%"></button></td>
+                <td><button class="disc player1Empty" style="width: 100%; height: 100%"></button></td>
+                <td style="background-color: green"><button class="disc player1Empty" style="width: 100%; height: 100%"></button></td>
+            </tr>
+            <tr>
+                <td><button class="disc player1Empty" style="width: 100%; height: 100%"></button></td>
+                <td style="background-color: green"><button class="disc player1Empty" style="width: 100%; height: 100%"></button></td>
+                <td><button class="disc player1Empty" style="width: 100%; height: 100%"></button></td>
+                <td style="background-color: green"><button class="disc player1Empty" style="width: 100%; height: 100%"></button></td>
+                <td><button class="disc player1Empty" style="width: 100%; height: 100%"></button></td>
+            </tr>
+            <tr>
+                <td style="background-color: green"><button class="disc player1Empty" style="width: 100%; height: 100%"></button></td>
+                <td><button class="disc player1Empty" style="width: 100%; height: 100%"></button></td>
+                <td style="background-color: green"><button class="disc player1Empty" style="width: 100%; height: 100%"></button></td>
+                <td><button class="disc player1Empty" style="width: 100%; height: 100%"></button></td>
+                <td style="background-color: green"><button class="disc player1Empty" style="width: 100%; height: 100%"></button></td>
+            </tr>
+        </table>
+        </div>
+    </div-->
 </div>
