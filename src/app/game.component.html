@@ -1,23 +1,15 @@
 <!-- Templates -->
-<ng-template #inPlay><div class="{{game.playerTurn ? 'player2' : 'player1'}}">Player {{game.playerTurn ? 2 : 1}}'s turn</div></ng-template>
-<ng-template #endGame><div class="{{!game.playerTurn ? 'player2' : 'player1'}}">Player {{!game.playerTurn ? 2 : 1}} wins!</div></ng-template>
-
-<ng-template #btnEmpty><button class="disc {{game.playerTurn ? 'player2Empty': 'player1Empty'}}" (click)="onSelectSlot(rowIdx, colIdx)"></button></ng-template>
-<ng-template #btnPlayer1><button class="disc player1"></button></ng-template>
-<ng-template #btnPlayer2><button class="disc player2"></button></ng-template>
+<ng-template #inPlay><div class="{{game.playerTurn ? 'player2' : 'player1'}}" style="margin: auto">Player {{game.playerTurn ? 2 : 1}}'s turn</div></ng-template>
+<ng-template #endGame><div class="{{!game.playerTurn ? 'player2' : 'player1'}}" style="margin: auto">Player {{!game.playerTurn ? 2 : 1}} wins!</div></ng-template>
 
 <div *ngIf="game">
-    <div class="row" style="background-color:aqua">
-        <div class="col-xs-12">Test</div>
-    </div>
-
     <!-- Shows player turn -->
     <div class="row">
-        <div *ngIf="game.isOver; then endGame else inPlay" class="col-xs-12"></div>
+        <div *ngIf="game.isOver; then endGame else inPlay" class="col-xs-12" style="margin: auto"></div>
     </div>
-    <div class="row" style="background-color: pink">
-        <div class="col-xs-12">P1 Solutuions: {{game.player1Solutions}}, P2 Solutuions: {{game.player2Solutions}}, Rating: {{game.rating}}</div>
-    </div>
+    <!--div class="row" style="background-color: #AF4CAB">
+        <div class="col-xs-12" style="color: white">P1 Solutuions: {{game.player1Solutions}}, P2 Solutuions: {{game.player2Solutions}}, Rating: {{game.rating}}</div>
+    </div-->
 
     <!-- Options -->
     <div class="row">
@@ -25,28 +17,19 @@
     </div>
 
     <!-- Interactive game board -->
-    <!--table style="width: 560px; height: 480px; max-width: 560px; max-height: 480px"-->
-    <!--table class="board">
-        <tr *ngFor="let rows of game.board; let rowIdx = index">
-            <td *ngFor="let slot of rows; let colIdx = index">
-                <div *ngIf="slot === 0; then btnEmpty else ((slot === 1) ? btnPlayer1: btnPlayer2)"></div>
-            </td>
-        </tr>
-    </table-->
-    <!--table>
-        <tr *ngFor="let rows of game.board; let rowIdx = index">
-            <td *ngFor="let slot of rows; let colIdx = index">
-                <div *ngIf="slot === 0; then btnEmpty else ((slot === 1) ? btnPlayer1: btnPlayer2)"></div>
-            </td>
-        </tr>
-    </table-->
-    <div class="row"><div class="col-xs-12" style="width: 100%; height: auto">
-    <table class="gameBoard" style="table-layout: fixed; margin: auto; width: 100%; height: 100%">
-        <tr *ngFor="let rows of game.board; let rowIdx = index" style="background-color: green" >
-            <td *ngFor="let slot of rows; let colIdx = index">
-                <div *ngIf="slot === 0; then btnEmpty else ((slot === 1) ? btnPlayer1: btnPlayer2)"></div>
-            </td>
-        </tr>
-    </table>
-    </div></div>
+	<div class="row">
+    	<div style="position: relative; padding-top: calc(100% * 6 / 7); width: 100%" class="col-xs-12 container"> 
+        	<table class="gameBoard" style="width: 100%; height: 100%; position: absolute; top: 0; left: 0; bottom: 0; right: 0; margin-left: auto; margin-right: auto">
+                <tr *ngFor="let rows of game.board; let rowIdx = index">
+                    <td *ngFor="let slot of rows; let colIdx = index">
+                        <ng-template #btnEmpty><button class="disc {{game.playerTurn ? 'player2Empty': 'player1Empty'}}" (click)="onSelectSlot(rowIdx, colIdx)"></button></ng-template>
+                        <ng-template #btnPlayer1><button class="disc player1"></button></ng-template>
+                        <ng-template #btnPlayer2><button class="disc player2"></button></ng-template>
+                        <div *ngIf="slot === 0; then btnEmpty else ((slot === 1) ? btnPlayer1: btnPlayer2)"></div>
+                    </td>
+                </tr>
+            </table>
+    	</div>
+	</div>
+
 </div>

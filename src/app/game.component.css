@@ -1,12 +1,6 @@
-.board {
-    width: 560px;
-    height: 480px;
-    background-color: #D1D136; /* Yellow */
-    border-radius: 0%;
-    border: 1px solid black;
-}
-
 .gameBoard {
+    max-width: calc(80px * 7);
+    max-height: calc(80px * 6);
     background-color: #D1D136; /* Yellow */
     border-radius: 0%;
     border: 1px solid black;
